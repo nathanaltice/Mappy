@@ -1,6 +1,6 @@
 // Nathan Altice
 // Created: 5/4/20
-// Updated: 5/4/20
+// Updated: 5/5/20
 // Mappy
 // Tilemap examples
 // Lovingly adapted from Michael Hadley's "Modular Game Worlds in Phaser 3" tutorial series
@@ -15,7 +15,7 @@ let config = {
     height: 320,
     zoom: 2,
     pixelArt: true,     // make sure Phaser scales images cleanly
-    scene: [ ArrayMap ]
+    scene: [ ArrayMap, RandomMap ]
 };
 
 let game = new Phaser.Game(config);

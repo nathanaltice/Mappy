@@ -1,14 +1,6 @@
-class ArrayMap extends Phaser.Scene {
+class RandomMap extends Phaser.Scene {
     constructor() {
-        super("arrayMapScene");
-    }
-
-    preload() {
-        // get assets
-        this.load.path = "./assets/";
-        this.load.image("smb_tiles", "smb_tiles_simple.png");
-        this.load.image("1bit_tiles", "colored_packed.png");
-        this.load.image("1bit_tiles_mono", "monochrome_packed.png");
+        super("randomMapScene");
     }
 
     create() {
@@ -35,6 +27,7 @@ class ArrayMap extends Phaser.Scene {
             [ 15,  0,  0,  0, 26, 27,  0,  0,  0, 15, 39, 38, 38, 14, 14, 14, 14, 38, 38, 39 ],
             [ 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39 ]
         ];
+        console.log(level01);
 
         // make tilemap from array and tilesheet
         // https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.GameObjectCreator.html#tilemap
@@ -48,8 +41,5 @@ class ArrayMap extends Phaser.Scene {
         const tilesheet = map.addTilesetImage("smb_tiles");
         // createStaticLayer(layerID, tileset [, x] [, y])
         const layer = map.createStaticLayer(0, tilesheet, 0, 0);
-
-        // debug
-        this.scene.start("randomMapScene");
     }
 }
