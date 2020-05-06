@@ -7,7 +7,6 @@ class ArrayMap extends Phaser.Scene {
         // get assets
         this.load.path = "./assets/";
         this.load.image("smb_tiles", "smb_tiles_simple.png");
-        this.load.image("1bit_tiles", "colored_packed.png");
         this.load.image("1bit_tiles_mono", "monochrome_packed.png");
     }
 

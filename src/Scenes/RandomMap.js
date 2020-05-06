@@ -4,42 +4,70 @@ class RandomMap extends Phaser.Scene {
     }
 
     create() {
+        // vars
+        const numSMBtiles = 40;
+
+        // randomize border tiles
+        let b1 = this.getRandomInt(numSMBtiles);
+        let b2 = this.getRandomInt(numSMBtiles);
+        let b3 = this.getRandomInt(numSMBtiles);
+        let b4 = this.getRandomInt(numSMBtiles);
+        // sky tiles
+        let s1 = this.getRandomInt(10);
+        let s2 = this.getRandomInt(10);
+        // and other tiles
+        let t1 = this.getRandomInt(numSMBtiles);
+        let t2 = this.getRandomInt(numSMBtiles);
+        let t3 = this.getRandomInt(numSMBtiles);
+        let t4 = this.getRandomInt(numSMBtiles);
+        let t5 = this.getRandomInt(numSMBtiles);
+        let t6 = this.getRandomInt(numSMBtiles);
+        let t7 = this.getRandomInt(numSMBtiles);
+        let t8 = this.getRandomInt(numSMBtiles);
+        
         // create a 2D array of tile indices
-        const level01 = [
-            [ 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15 ],
-            [ 39,  0,  0,  0,  0,  0,  0,  0,  0, 39, 15,  0,  0, 16,  0,  0, 12,  0,  0, 15 ],
-            [ 39,  0,  0,  0,  0,  0,  0,  0,  0, 39, 15,  0,  0, 16,  0,  0, 12,  0,  0, 15 ],
-            [ 39,  0,  0,  0,  0,  0,  0,  0,  0, 39, 15,  0,  0, 16,  0,  0, 12,  0,  0, 15 ],
-            [ 39,  0,  0,  0, 15, 15,  0,  0,  0, 39, 15,  0,  0, 16,  0,  0, 13,  0,  0, 15 ],
-            [ 39,  0,  0,  0, 15, 15,  0,  0,  0, 39, 15,  0,  0, 13,  0,  0,  0,  0,  0, 15 ],
-            [ 39,  0,  0,  0,  0,  0,  0,  0,  0, 39, 15,  0,  0,  0,  0,  0,  0,  0,  0, 15 ],
-            [ 39,  0,  0,  0,  0,  0,  0,  0,  0, 39, 15,  0,  0,  0,  0,  0,  0,  0,  0, 15 ],
-            [ 39,  0,  0,  0,  0,  0,  0,  0,  0, 39, 15,  0,  0,  4,  0,  0,  4,  0,  0, 15 ],
-            [ 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15 ],
-            [ 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39 ],
-            [ 15,  0,  0,  0,  0,  0,  0,  0,  0, 15, 39, 32, 32, 32, 32, 32, 32, 32, 32, 39 ],
-            [ 15,  0,  0,  0,  0,  0,  0,  0,  0, 15, 39, 38, 38, 38, 38, 38, 38, 38, 38, 39 ],
-            [ 15,  0,  0,  0,  0,  0,  0,  0,  0, 15, 39, 38, 38, 38, 38, 38, 38, 38, 38, 39 ],
-            [ 15,  0,  0,  0, 20, 21,  0,  0,  0, 15, 39, 38, 38, 38, 38, 38, 38, 38, 38, 39 ],
-            [ 15,  0,  0,  0, 26, 27,  0,  0,  0, 15, 39, 38, 38, 38, 38, 38, 38, 38, 38, 39 ],
-            [ 15,  0,  0,  0, 26, 27,  0,  0,  0, 15, 39, 38, 38, 38, 24, 22, 38, 38, 38, 39 ],
-            [ 15,  0,  0,  0, 26, 27,  0,  0,  0, 15, 39, 38, 38, 38, 14, 14, 38, 38, 38, 39 ],
-            [ 15,  0,  0,  0, 26, 27,  0,  0,  0, 15, 39, 38, 38, 14, 14, 14, 14, 38, 38, 39 ],
-            [ 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39 ]
+        const rndlvl = [
+            [ b1, b1, b1, b1, b1, b1, b1, b1, b1, b1, b2, b2, b2, b2, b2, b2, b2, b2, b2, b2 ],
+            [ b1,  0,  0,  0,  0,  0,  0,  0,  0, b1, b2, s2, s2, t3, s2, s2, t3, s2, s2, b2 ],
+            [ b1,  0,  0,  0,  0,  0,  0,  0,  0, b1, b2,  0,  0, t3,  0,  0, t3,  0,  0, b2 ],
+            [ b1,  0,  0,  0,  0,  0,  0,  0,  0, b1, b2,  0,  0, t3,  0,  0, t3,  0,  0, b2 ],
+            [ b1,  0,  0,  0, t5, t5,  0,  0,  0, b1, b2,  0,  0, t3,  0,  0, t4,  0,  0, b2 ],
+            [ b1,  0,  0,  0, t5, t5,  0,  0,  0, b1, b2,  0,  0, t4,  0,  0,  0,  0,  0, b2 ],
+            [ b1,  0,  0,  0,  0,  0,  0,  0,  0, b1, b2,  0,  0,  0,  0,  0,  0,  0,  0, b2 ],
+            [ b1,  0,  0,  0,  0,  0,  0,  0,  0, b1, b2,  0,  0,  0,  0,  0,  0,  0,  0, b2 ],
+            [ b1,  0,  0,  0,  0,  0,  0,  0,  0, b1, b2,  0,  0, t6,  0,  0, t6,  0,  0, b2 ],
+            [ b1, b1, b1, b1, b1, b1, b1, b1, b1, b1, b2, b2, b2, b2, b2, b2, b2, b2, b2, b2 ],
+            [ b3, b3, b3, b3, b3, b3, b3, b3, b3, b3, b4, b4, b4, b4, b4, b4, b4, b4, b4, b4 ],
+            [ b3, s1, s1, s1, s1, s1, s1, s1, s1, b3, b4, t8, t8, t8, t8, t8, t8, t8, t8, b4 ],
+            [ b3, s1, s1, s1, s1, s1, s1, s1, s1, b3, b4, t4, t4, t4, t4, t4, t4, t4, t4, b4 ],
+            [ b3, s1, s1, s1, s1, s1, s1, s1, s1, b3, b4, t4, t4, t4, t4, t4, t4, t4, t4, b4 ],
+            [ b3, s1, s1, s1, t1, t1, s1, s1, s1, b3, b4, t4, t4, t4, t4, t4, t4, t4, t4, b4 ],
+            [ b3, s1, s1, s1, t2, t2, s1, s1, s1, b3, b4, t4, t4, t4, t4, t4, t4, t4, t4, b4 ],
+            [ b3, s1, s1, s1, t2, t2, s1, s1, s1, b3, b4, t4, t4, t4, t7, t7, t4, t4, t4, b4 ],
+            [ b3, s1, s1, s1, t2, t2, s1, s1, s1, b3, b4, t4, t4, t4, t7, t7, t4, t4, t4, b4 ],
+            [ b3, s1, s1, s1, t2, t2, s1, s1, s1, b3, b4, t4, t4, t7, t7, t7, t7, t4, t4, b4 ],
+            [ b3, b3, b3, b3, b3, b3, b3, b3, b3, b3, b4, b4, b4, b4, b4, b4, b4, b4, b4, b4 ]
         ];
-        console.log(level01);
 
         // make tilemap from array and tilesheet
         // https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.GameObjectCreator.html#tilemap
         const map = this.make.tilemap({
-            data: level01,      // load direct from array
+            data: rndlvl,      // load direct from array
             tileWidth: 16,
             tileHeight: 16
         });
         // addTilesetImage(tilesetName [, key] [, tileWidth] [, tileHeight] [, tileMargin] [, tileSpacing] [, gid])
-        // try changing the tilesheet key in the next line to see another tileset uses the same indices
         const tilesheet = map.addTilesetImage("smb_tiles");
         // createStaticLayer(layerID, tileset [, x] [, y])
         const layer = map.createStaticLayer(0, tilesheet, 0, 0);
+
+        // debug
+        this.scene.start("tiledSimpleScene");
     }
+
+    getRandomInt(max) {
+        let val = Math.floor(Math.random() * max);
+        return val;
+    }
+    
 }

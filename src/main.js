@@ -15,7 +15,7 @@ let config = {
     height: 320,
     zoom: 2,
     pixelArt: true,     // make sure Phaser scales images cleanly
-    scene: [ ArrayMap, RandomMap ]
+    scene: [ ArrayMap, RandomMap, TiledSimple ]
 };
 
 let game = new Phaser.Game(config);
