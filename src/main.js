@@ -18,10 +18,11 @@ let config = {
     scene: [ ArrayMap, RandomMap, TiledSimple ]
 };
 
-let game = new Phaser.Game(config);
+const game = new Phaser.Game(config);
 
 // globals
 const centerX = game.config.width / 2;
 const centerY = game.config.height / 2;
 const w = game.config.width;
 const h = game.config.h;
+let cursors = null;

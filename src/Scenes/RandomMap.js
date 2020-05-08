@@ -4,7 +4,7 @@ class RandomMap extends Phaser.Scene {
     }
 
     create() {
-        // vars
+        // constants
         const numSMBtiles = 40;
 
         // randomize border tiles
@@ -49,22 +49,48 @@ class RandomMap extends Phaser.Scene {
             [ b3, b3, b3, b3, b3, b3, b3, b3, b3, b3, b4, b4, b4, b4, b4, b4, b4, b4, b4, b4 ]
         ];
 
-        // make tilemap from array and tilesheet
+        // make tilemap (array data + tilesheet images)
         // https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.GameObjectCreator.html#tilemap
         const map = this.make.tilemap({
             data: rndlvl,      // load direct from array
             tileWidth: 16,
             tileHeight: 16
         });
+        // add tileset to tilemap
         // addTilesetImage(tilesetName [, key] [, tileWidth] [, tileHeight] [, tileMargin] [, tileSpacing] [, gid])
         const tilesheet = map.addTilesetImage("smb_tiles");
+        // create a layer in the tilemap
         // createStaticLayer(layerID, tileset [, x] [, y])
         const layer = map.createStaticLayer(0, tilesheet, 0, 0);
 
+        // create scene switcher / reload keys
+        // HEY NATHAN, TALK ABOUT NOT USING .ON FOR SCENE SWITCHING ⚠️
+
+        this.swap = this.input.keyboard.addKey('S');
+        // swap.on('down', () => {
+        //     this.scene.start("tiledSimpleScene");
+        // });
+        this.reload = this.input.keyboard.addKey('R');
+        // reload.on('down', () => {
+        //     this.scene.restart();
+        // });
+
         // debug
         this.scene.start("tiledSimpleScene");
+        //console.log(game);
     }
 
+    update() {
+        // scene switching / restart
+        if(Phaser.Input.Keyboard.JustDown(this.reload)) {
+            this.scene.restart();
+        }
+        if(Phaser.Input.Keyboard.JustDown(this.swap)) {
+            this.scene.start("tiledSimpleScene");
+        }
+    }
+
+    // generate a random number between 0 and max
     getRandomInt(max) {
         let val = Math.floor(Math.random() * max);
         return val;

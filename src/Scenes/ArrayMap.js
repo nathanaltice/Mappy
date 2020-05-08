@@ -35,20 +35,26 @@ class ArrayMap extends Phaser.Scene {
             [ 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39 ]
         ];
 
-        // make tilemap from array and tilesheet
+        // make tilemap (array date + tilesheet image)
         // https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.GameObjectCreator.html#tilemap
         const map = this.make.tilemap({
             data: level01,      // load direct from array
             tileWidth: 16,
             tileHeight: 16
         });
+        // add tileset to tilemap
         // addTilesetImage(tilesetName [, key] [, tileWidth] [, tileHeight] [, tileMargin] [, tileSpacing] [, gid])
         // try changing the tilesheet key in the next line to see another tileset uses the same indices
         const tilesheet = map.addTilesetImage("smb_tiles");
+        // create layer in tilemap
         // createStaticLayer(layerID, tileset [, x] [, y])
         const layer = map.createStaticLayer(0, tilesheet, 0, 0);
 
         // debug
         this.scene.start("randomMapScene");
+    }
+
+    update() {
+
     }
 }
