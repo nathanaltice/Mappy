@@ -10,8 +10,8 @@ class TiledPlatform extends Phaser.Scene {
     }
 
     create() {
-        // make a tile map
-        const map = this.make.tilemap({ key: "platform_map" });
+        // add a tile map
+        const map = this.add.tilemap("platform_map");
         // add a tile set to the map
         const tileset = map.addTilesetImage("colored_packed", "1bit_tiles");
         // create static layers
@@ -22,25 +22,19 @@ class TiledPlatform extends Phaser.Scene {
         // define keyboard cursor input
         cursors = this.input.keyboard.createCursorKeys();
 
-        // create camera control configuration object (see below)
+        // create camera control configuration object to pass to Camera Controller (see below)
+        // https://photonstorm.github.io/phaser3-docs/Phaser.Types.Cameras.Controls.html#.FixedKeyControlConfig
         let controlConfig = {
             camera: this.cameras.main,      // which camera?
             left: cursors.left,             // define keys...
             right: cursors.right,
-            up: cursors.up,
-            down: cursors.down,
-            zoomIn: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q),
-            zoomOut: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E),
-            zoomSpeed: 0.02,
-            acceleration: 0.06,             // physics values
-            drag: 0.0005,
-            maxSpeed: 0.5
+            speed: { x: 0.5, y: 0 }         // set speed of camera (keep values low)
         }
-        // create smoothed key camera control
-        // i.e., we control the cam w/ the defined keys w/ physics controls
+        // create fixed key camera control
+        // i.e., we control the cam w/ precise key control
         // note: you *must* call the update method of this controller each frame (see below)
-        // https://photonstorm.github.io/phaser3-docs/Phaser.Cameras.Controls.SmoothedKeyControl.html
-        this.camControl = new Phaser.Cameras.Controls.SmoothedKeyControl(controlConfig);
+        // https://photonstorm.github.io/phaser3-docs/Phaser.Cameras.Controls.FixedKeyControl.html
+        this.camControl = new Phaser.Cameras.Controls.FixedKeyControl(controlConfig);
 
         // set camera bounds
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);

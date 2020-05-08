@@ -50,11 +50,17 @@ class ArrayMap extends Phaser.Scene {
         // createStaticLayer(layerID, tileset [, x] [, y])
         const layer = map.createStaticLayer(0, tilesheet, 0, 0);
 
+        // enable scene switcher / reload keys
+        this.swap = this.input.keyboard.addKey('S');
+
         // debug
-        this.scene.start("randomMapScene");
+        //this.scene.start("randomMapScene");
     }
 
     update() {
-
+        // scene switching
+        if(Phaser.Input.Keyboard.JustDown(this.swap)) {
+            this.scene.start("randomMapScene");
+        }
     }
 }

@@ -11,21 +11,23 @@ class TiledSimple extends Phaser.Scene {
     }
 
     create() {
-        // make a tile map
-        const map = this.make.tilemap({
-            key: "map"      // this is referencing the key to our Tiled JSON file
-        });
+        // add a tile map
+        // https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.GameObjectFactory.html#tilemap__anchor
+        const map = this.add.tilemap("map");    // this is referencing the key to our Tiled JSON file
         // add a tile set to the map
         // first parameter: the name we gave the tileset when we added it to Tiled
         // second parameter: the key for the tile sheet we loaded above, in preload
+        // https://photonstorm.github.io/phaser3-docs/Phaser.Tilemaps.Tilemap.html#addTilesetImage__anchor
         const tileset = map.addTilesetImage("kenney_colored_packed", "1bit_tiles");
-        // create a static layer
+        // create a static layer (ie, can't be modified)
+        // https://photonstorm.github.io/phaser3-docs/Phaser.Tilemaps.Tilemap.html#createStaticLayer__anchor
         const worldLayer = map.createStaticLayer("Tile Layer 1", tileset, 0, 0);
 
         // define keyboard cursor input
         cursors = this.input.keyboard.createCursorKeys();
 
-        // create camera control configuration object (see below)
+        // create camera control configuration object to pass to Camera Controller (see below)
+        // https://photonstorm.github.io/phaser3-docs/Phaser.Types.Cameras.Controls.html#.SmoothedKeyControlConfig__anchor
         let controlConfig = {
             camera: this.cameras.main,      // which camera?
             left: cursors.left,             // define keys...
@@ -35,7 +37,7 @@ class TiledSimple extends Phaser.Scene {
             zoomIn: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q),
             zoomOut: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E),
             zoomSpeed: 0.02,
-            acceleration: 0.06,             // physics values
+            acceleration: 0.06,             // physics values (keep these low)
             drag: 0.0005,
             maxSpeed: 0.5
         }
@@ -53,7 +55,7 @@ class TiledSimple extends Phaser.Scene {
         this.reload = this.input.keyboard.addKey('R');
 
         // debug
-        this.scene.start("tiledPlatformScene");
+        //this.scene.start("tiledPlatformScene");
     }
 
     update(time, delta) {
@@ -65,7 +67,7 @@ class TiledSimple extends Phaser.Scene {
             this.scene.restart();
         }
         if(Phaser.Input.Keyboard.JustDown(this.swap)) {
-            //this.scene.start("platformTiledScene");
+            this.scene.start("tiledPlatformScene");
         }
     }
 }
