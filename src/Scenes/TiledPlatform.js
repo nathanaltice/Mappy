@@ -1,26 +1,23 @@
-class TiledSimple extends Phaser.Scene {
+class TiledPlatform extends Phaser.Scene {
     constructor() {
-        super("tiledSimpleScene");
+        super("tiledPlatformScene");
     }
 
     preload() {
         // load assets
         this.load.path = "./assets/";
-        this.load.image("1bit_tiles", "colored_packed.png");    // tile sheet
-        this.load.tilemapTiledJSON("map", "tilemap01.json");    // Tiled JSON file
+        this.load.tilemapTiledJSON("platform_map", "tilemap02.json");    // Tiled JSON file
     }
 
     create() {
         // make a tile map
-        const map = this.make.tilemap({
-            key: "map"      // this is referencing the key to our Tiled JSON file
-        });
+        const map = this.make.tilemap({ key: "platform_map" });
         // add a tile set to the map
-        // first parameter: the name we gave the tileset when we added it to Tiled
-        // second parameter: the key for the tile sheet we loaded above, in preload
-        const tileset = map.addTilesetImage("kenney_colored_packed", "1bit_tiles");
-        // create a static layer
-        const worldLayer = map.createStaticLayer("Tile Layer 1", tileset, 0, 0);
+        const tileset = map.addTilesetImage("colored_packed", "1bit_tiles");
+        // create static layers
+        const backgroundLayer = map.createStaticLayer("Background", tileset, 0, 0);
+        const groundLayer = map.createStaticLayer("Ground", tileset, 0, 0);
+        const sceneryLayer = map.createStaticLayer("Scenery", tileset, 0, 0);
 
         // define keyboard cursor input
         cursors = this.input.keyboard.createCursorKeys();
@@ -53,7 +50,7 @@ class TiledSimple extends Phaser.Scene {
         this.reload = this.input.keyboard.addKey('R');
 
         // debug
-        this.scene.start("tiledPlatformScene");
+        //this.scene.start("");
     }
 
     update(time, delta) {
