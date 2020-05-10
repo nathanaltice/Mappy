@@ -55,7 +55,7 @@ class TiledSimple extends Phaser.Scene {
         this.reload = this.input.keyboard.addKey('R');
 
         // debug
-        this.scene.start("tiledPlatformScene");
+        //this.scene.start("tiledPlatformScene");
     }
 
     update(time, delta) {

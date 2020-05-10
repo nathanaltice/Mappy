@@ -50,6 +50,10 @@ class TiledPlatform extends Phaser.Scene {
         this.p1.setMaxVelocity(this.MAX_X_VEL, this.MAX_Y_VEL);
         this.p1.setCollideWorldBounds(true);
 
+        /*
+        TO-DO: player animations
+        */
+
         // set gravity and physics world bounds (so collideWorldBounds works)
         this.physics.world.gravity.y = 2000;
         this.physics.world.bounds.setTo(0, 0, map.widthInPixels, map.heightInPixels);

@@ -54,7 +54,7 @@ class ArrayMap extends Phaser.Scene {
         this.swap = this.input.keyboard.addKey('S');
 
         // debug
-        this.scene.start("randomMapScene");
+        //this.scene.start("randomMapScene");
     }
 
     update() {
