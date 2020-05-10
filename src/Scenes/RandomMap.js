@@ -80,7 +80,7 @@ class RandomMap extends Phaser.Scene {
         this.reload = this.input.keyboard.addKey('R');
 
         // debug
-        //this.scene.start("tiledSimpleScene");
+        this.scene.start("tiledSimpleScene");
         //console.log(game);
     }
 

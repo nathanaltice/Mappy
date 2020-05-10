@@ -10,11 +10,18 @@
 
 // game config
 let config = {
-    type: Phaser.AUTO,
+    type: Phaser.CANVAS,
+    pixelArt: true,
     width: 320,
     height: 320,
     zoom: 2,
-    pixelArt: true,     // make sure Phaser scales images cleanly
+    physics: {
+        default: "arcade",
+        arcade: {
+            //debug: true,
+
+        }
+    },
     scene: [ ArrayMap, RandomMap, TiledSimple, TiledPlatform ]
 };
 
