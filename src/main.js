@@ -19,7 +19,6 @@ let config = {
         default: "arcade",
         arcade: {
             //debug: true,
-
         }
     },
     scene: [ ArrayMap, RandomMap, TiledSimple, TiledPlatform ]
