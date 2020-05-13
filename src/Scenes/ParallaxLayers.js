@@ -1,6 +1,6 @@
-class TiledPlatform extends Phaser.Scene {
+class ParallaxLayers extends Phaser.Scene {
     constructor() {
-        super("tiledPlatformScene");
+        super("parallaxLayersScene");
 
         // variables and settings
         this.ACCELERATION = 500;
@@ -13,57 +13,37 @@ class TiledPlatform extends Phaser.Scene {
     preload() {
         // load assets
         this.load.path = "./assets/";
-        this.load.spritesheet("kenney_sheet", "colored_transparent_packed.png", {
-            frameWidth: 16,
-            frameHeight: 16
-        });
-        this.load.tilemapTiledJSON("platform_map", "tilemap02.json");    // Tiled JSON file
+        this.load.tilemapTiledJSON("parallax_map", "tilemap04.json");    // Tiled JSON file
     }
 
     create() {
-        // add a tilemap
-        const map = this.add.tilemap("platform_map");
-        // add a tileset to the map
+        // add a tile map
+        const map = this.add.tilemap("parallax_map"); 
+        // add a tile set to the map
         const tileset = map.addTilesetImage("colored_packed", "1bit_tiles");
-        // create tilemap layers
-        const backgroundLayer = map.createStaticLayer("Background", tileset, 0, 0);
+        // create a static layer (ie, can't be modified)
+        // these have scroll factors set to create parallax layer scrolling
+        const bgLayer = map.createStaticLayer("Background", tileset, 0, 0).setScrollFactor(0.25);
+        const pipesLayer = map.createStaticLayer("Pipes", tileset, 0, 0).setScrollFactor(0.5);
+        const laddersLayer = map.createStaticLayer("Ladders", tileset, 0, 0).setScrollFactor(0.75);
         const groundLayer = map.createStaticLayer("Ground", tileset, 0, 0);
-        const sceneryLayer = map.createStaticLayer("Scenery", tileset, 0, 0);
-        
-        // set map collision (two styles: uncomment *one* of the two lines below)
-        groundLayer.setCollision([19, 20, 21, 67, 69, 120]);
-        //groundLayer.setCollisionByProperty({ collides: true });
-        
-        // define a render debug so we can see the tilemap's collision bounds
-        const debugGraphics = this.add.graphics().setAlpha(0.75);
-        // groundLayer.renderDebug(debugGraphics, {
-        //     tileColor: null,    // color of non-colliding tiles
-        //     collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),    // color of colliding tiles
-        //     faceColor: new Phaser.Display.Color(40, 39, 37, 255)                // color of colliding face edges
-        // });
 
-        // setup player
-        // place player on map from Tiled object layer data
-        // .findObject(objectLayer, callback [, context])
-        // "Find the first object in the given object layer that satisfies the provided testing function. I.e. finds the first object for which callback returns true."
+        // set map collision
+        groundLayer.setCollisionByProperty({ collides: true });
+
+        // create player
         const p1Spawn = map.findObject("Objects", obj => obj.name === "P1 Spawn");
         this.p1 = this.physics.add.sprite(p1Spawn.x, p1Spawn.y, "kenney_sheet", 450);
         // set player physics properties
         this.p1.body.setSize(this.p1.width/2);
         this.p1.body.setMaxVelocity(this.MAX_X_VEL, this.MAX_Y_VEL);
         this.p1.body.setCollideWorldBounds(true);
-        
-        /* TO-DO: player animations */
 
         // generate coin objects from object data
-        // .createFromObjects(name, id, spriteConfig [, scene])
         this.coins = map.createFromObjects("Objects", "coin", {
             key: "kenney_sheet",
             frame: 214
         }, this);
-        // createFromObjects can't add Physics Sprites, so we add physics manually
-        // https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Arcade.World.html#enable__anchor
-        // second parameter is 0: DYNAMIC_BODY or 1: STATIC_BODY
         this.physics.world.enable(this.coins, Phaser.Physics.Arcade.STATIC_BODY);
         // now use JS .map method to set a more accurate circle body on each sprite
         this.coins.map((coin) => {
@@ -85,7 +65,6 @@ class TiledPlatform extends Phaser.Scene {
         // setup camera
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
         this.cameras.main.startFollow(this.p1, true, 0.25, 0.25); // (target, [,roundPixels][,lerpX][,lerpY])
-        //this.cameras.main.setDeadzone(50, 50);
 
         // define keyboard cursor input
         cursors = this.input.keyboard.createCursorKeys();
@@ -93,9 +72,6 @@ class TiledPlatform extends Phaser.Scene {
         // enable scene switcher / reload keys
         this.swap = this.input.keyboard.addKey('S');
         this.reload = this.input.keyboard.addKey('R');
-
-        // debug
-        //this.scene.start("");
     }
 
     update() {
@@ -112,8 +88,8 @@ class TiledPlatform extends Phaser.Scene {
             this.p1.body.setDragX(this.DRAG);
         }
         // player jump
-        // note that we need body.blocked rather than body.touching b/c the former applies to tilemap tiles and the latter to the "ground"
         if(!this.p1.body.blocked.down) {
+            // TO-DO: jump animations
             //this.p1.anims.play('jump', true);
         }
         if(this.p1.body.blocked.down && Phaser.Input.Keyboard.JustDown(cursors.up)) {
@@ -123,9 +99,6 @@ class TiledPlatform extends Phaser.Scene {
         // scene switching / restart
         if(Phaser.Input.Keyboard.JustDown(this.reload)) {
             this.scene.restart();
-        }
-        if(Phaser.Input.Keyboard.JustDown(this.swap)) {
-            this.scene.start("parallaxLayersScene");
         }
     }
 }
