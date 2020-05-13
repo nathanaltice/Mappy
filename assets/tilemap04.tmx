@@ -5383,7 +5383,7 @@
 </data>
  </layer>
  <objectgroup id="5" name="Objects">
-  <object id="1" name="P1 Spawn" x="40.3816" y="260.04">
+  <object id="1" name="P1 Spawn" x="39.616" y="269.227">
    <point/>
   </object>
   <object id="2" name="coin" gid="215" x="432" y="208" width="16" height="16"/>

@@ -100,5 +100,8 @@ class ParallaxLayers extends Phaser.Scene {
         if(Phaser.Input.Keyboard.JustDown(this.reload)) {
             this.scene.restart();
         }
+        if(Phaser.Input.Keyboard.JustDown(this.swap)) {
+            this.scene.start("arrayMapScene");
+        }
     }
 }
