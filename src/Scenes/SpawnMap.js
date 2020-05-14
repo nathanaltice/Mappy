@@ -1,6 +1,6 @@
-class ParallaxLayers extends Phaser.Scene {
+class SpawnMap extends Phaser.Scene {
     constructor() {
-        super("parallaxLayersScene");
+        super("spawnMapScene");
 
         // variables and settings
         this.ACCELERATION = 500;
@@ -13,19 +13,16 @@ class ParallaxLayers extends Phaser.Scene {
     preload() {
         // load assets
         this.load.path = "./assets/";
-        this.load.tilemapTiledJSON("parallax_map", "tilemap04.json");    // Tiled JSON file
+        this.load.tilemapTiledJSON("spawn_map", "tilemap05.json");    // Tiled JSON file
     }
 
     create() {
         // add a tile map
-        const map = this.add.tilemap("parallax_map"); 
+        const map = this.add.tilemap("spawn_map"); 
         // add a tile set to the map
         const tileset = map.addTilesetImage("colored_packed", "1bit_tiles");
         // create a static layer (ie, can't be modified)
-        // these have scroll factors set to create parallax layer scrolling
-        const bgLayer = map.createStaticLayer("Background", tileset, 0, 0).setScrollFactor(0.25);
-        const pipesLayer = map.createStaticLayer("Pipes", tileset, 0, 0).setScrollFactor(0.5);
-        const laddersLayer = map.createStaticLayer("Ladders", tileset, 0, 0).setScrollFactor(0.75);
+        const bgLayer = map.createStaticLayer("Background", tileset, 0, 0);
         const groundLayer = map.createStaticLayer("Ground", tileset, 0, 0);
 
         // set map collision
@@ -52,6 +49,19 @@ class ParallaxLayers extends Phaser.Scene {
         // then add the coins to a group
         this.coinGroup = this.add.group(this.coins);
 
+        // get enemy object array from tilemap Objects layer
+        let enemyObjects = map.filterObjects("Objects", obj => obj.name === "enemy");
+        // select a subset of enemy objects and store in an array
+        let enemyList = this.selectRandomElements(enemyObjects, 4);
+        // create enemy physics sprites from list, add them to enemies group
+        this.enemies = this.add.group();
+        enemyList.map((element) => {
+            //console.log(`Adding enemy id: ${element.id}`);
+            let enemy = this.physics.add.sprite(element.x, element.y, "kenney_sheet", 318).setOrigin(0, 1);
+            enemy.body.setImmovable(true);
+            this.enemies.add(enemy);
+        });
+
         // set gravity and physics world bounds (so collideWorldBounds works)
         this.physics.world.gravity.y = 2000;
         this.physics.world.bounds.setTo(0, 0, map.widthInPixels, map.heightInPixels);
@@ -61,6 +71,10 @@ class ParallaxLayers extends Phaser.Scene {
         this.physics.add.overlap(this.p1, this.coinGroup, (obj1, obj2) => {
             obj2.destroy(); // remove coin on overlap
         });
+        this.physics.add.collider(this.p1, this.enemies, (p1, enemey) => {
+            console.log(`ouch!`);
+        });
+        this.physics.add.collider(this.enemies, groundLayer);
 
         // setup camera
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -72,6 +86,18 @@ class ParallaxLayers extends Phaser.Scene {
         // enable scene switcher / reload keys
         this.swap = this.input.keyboard.addKey('S');
         this.reload = this.input.keyboard.addKey('R');
+    }
+
+    // select [num] random elements from [elements] array
+    selectRandomElements(elements, num) {
+        let newList = [];
+        for(let i = 0; i < num; i++) {
+            let randValue = Math.floor(Math.random() * elements.length);    // get rnd value w/in array length
+            newList.push(elements[randValue]);  // push that array element to new array
+            elements.splice(randValue, 1);      // remove that element from original array (to prevent duplicate selection)
+        }
+
+        return newList;
     }
 
     update() {
@@ -101,7 +127,7 @@ class ParallaxLayers extends Phaser.Scene {
             this.scene.restart();
         }
         if(Phaser.Input.Keyboard.JustDown(this.swap)) {
-            this.scene.start("spawnMapScene");
+            this.scene.start("arrayMapScene");
         }
     }
 }
