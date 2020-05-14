@@ -47,7 +47,7 @@ class ParallaxLayers extends Phaser.Scene {
         this.physics.world.enable(this.coins, Phaser.Physics.Arcade.STATIC_BODY);
         // now use JS .map method to set a more accurate circle body on each sprite
         this.coins.map((coin) => {
-            coin.body.setCircle(8); // .setCircle offset values still seem to be broken :/
+            coin.body.setCircle(4).setOffset(4, 4);
         });
         // then add the coins to a group
         this.coinGroup = this.add.group(this.coins);

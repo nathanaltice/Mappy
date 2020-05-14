@@ -31,16 +31,16 @@ class TiledPlatform extends Phaser.Scene {
         const sceneryLayer = map.createStaticLayer("Scenery", tileset, 0, 0);
         
         // set map collision (two styles: uncomment *one* of the two lines below)
-        groundLayer.setCollision([19, 20, 21, 67, 69, 120]);
-        //groundLayer.setCollisionByProperty({ collides: true });
+        //groundLayer.setCollision([19, 20, 21, 67, 69, 120]);
+        groundLayer.setCollisionByProperty({ collides: true });
         
         // define a render debug so we can see the tilemap's collision bounds
         const debugGraphics = this.add.graphics().setAlpha(0.75);
-        // groundLayer.renderDebug(debugGraphics, {
-        //     tileColor: null,    // color of non-colliding tiles
-        //     collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),    // color of colliding tiles
-        //     faceColor: new Phaser.Display.Color(40, 39, 37, 255)                // color of colliding face edges
-        // });
+        groundLayer.renderDebug(debugGraphics, {
+            tileColor: null,    // color of non-colliding tiles
+            collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),    // color of colliding tiles
+            faceColor: new Phaser.Display.Color(40, 39, 37, 255)                // color of colliding face edges
+        });
 
         // setup player
         // place player on map from Tiled object layer data
@@ -67,7 +67,7 @@ class TiledPlatform extends Phaser.Scene {
         this.physics.world.enable(this.coins, Phaser.Physics.Arcade.STATIC_BODY);
         // now use JS .map method to set a more accurate circle body on each sprite
         this.coins.map((coin) => {
-            coin.body.setCircle(8); // .setCircle offset values still seem to be broken :/
+            coin.body.setCircle(4).setOffset(4, 4); 
         });
         // then add the coins to a group
         this.coinGroup = this.add.group(this.coins);

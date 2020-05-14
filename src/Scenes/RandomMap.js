@@ -64,24 +64,11 @@ class RandomMap extends Phaser.Scene {
         const layer = map.createStaticLayer(0, tilesheet, 0, 0);
 
         // create scene switcher / reload keys
-        // HEY NATHAN, TALK ABOUT NOT USING .ON FOR SCENE SWITCHING ⚠️
-
-        this.swap = this.input.keyboard.addKey('S');
-        // swap.on('down', () => {
-        //     this.scene.start("tiledSimpleScene");
-        // });
-        this.reload = this.input.keyboard.addKey('R');
-        // reload.on('down', () => {
-        //     this.scene.restart();
-        // });
-
-        // enable scene switcher / reload keys
         this.swap = this.input.keyboard.addKey('S');
         this.reload = this.input.keyboard.addKey('R');
 
         // debug
         //this.scene.start("tiledSimpleScene");
-        //console.log(game);
     }
 
     update() {
