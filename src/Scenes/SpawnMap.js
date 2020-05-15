@@ -8,6 +8,9 @@ class SpawnMap extends Phaser.Scene {
         this.MAX_Y_VEL = 2000;
         this.DRAG = 600;    
         this.JUMP_VELOCITY = -650;
+        this.ENEMY_SPAWNS = 6;      // how many enemy spawn locations will populate?
+        // enemy frame indices from tilesheet
+        this.ENEMY_FRAMES = [316, 317, 318, 319, 459, 460, 461, 462];
     }
 
     preload() {
@@ -52,13 +55,12 @@ class SpawnMap extends Phaser.Scene {
         // get enemy object array from tilemap Objects layer
         let enemyObjects = map.filterObjects("Objects", obj => obj.name === "enemy");
         // select a subset of enemy objects and store in an array
-        let enemyList = this.selectRandomElements(enemyObjects, 4);
+        let enemyList = this.selectRandomElements(enemyObjects, this.ENEMY_SPAWNS);
         // create enemy physics sprites from list, add them to enemies group
         this.enemies = this.add.group();
         enemyList.map((element) => {
-            //console.log(`Adding enemy id: ${element.id}`);
-            let enemy = this.physics.add.sprite(element.x, element.y, "kenney_sheet", 318).setOrigin(0, 1);
-            enemy.body.setImmovable(true);
+            // Jumper prefab (scene, x, y, key, frame)
+            let enemy = new Jumper(this, element.x, element.y, "kenney_sheet", this.ENEMY_FRAMES[Math.floor(Math.random() * this.ENEMY_FRAMES.length)] );   
             this.enemies.add(enemy);
         });
 
@@ -72,7 +74,7 @@ class SpawnMap extends Phaser.Scene {
             obj2.destroy(); // remove coin on overlap
         });
         this.physics.add.collider(this.p1, this.enemies, (p1, enemey) => {
-            console.log(`ouch!`);
+            
         });
         this.physics.add.collider(this.enemies, groundLayer);
 
@@ -88,7 +90,7 @@ class SpawnMap extends Phaser.Scene {
         this.reload = this.input.keyboard.addKey('R');
     }
 
-    // select [num] random elements from [elements] array
+    // select [num] random elements from [elements] array and return an array
     selectRandomElements(elements, num) {
         let newList = [];
         for(let i = 0; i < num; i++) {
@@ -96,7 +98,6 @@ class SpawnMap extends Phaser.Scene {
             newList.push(elements[randValue]);  // push that array element to new array
             elements.splice(randValue, 1);      // remove that element from original array (to prevent duplicate selection)
         }
-
         return newList;
     }
 
