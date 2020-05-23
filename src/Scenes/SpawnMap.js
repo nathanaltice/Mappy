@@ -128,7 +128,7 @@ class SpawnMap extends Phaser.Scene {
             this.scene.restart();
         }
         if(Phaser.Input.Keyboard.JustDown(this.swap)) {
-            this.scene.start("arrayMapScene");
+            this.scene.start("tilepainterScene");
         }
     }
 }

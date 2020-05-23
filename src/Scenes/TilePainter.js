@@ -10,15 +10,15 @@ class TilePainter extends Phaser.Scene {
     preload() {
         // load assets
         this.load.path = "./assets/";
-        this.load.image("1bit_tiles", "colored_packed.png");    // tile sheet
-        this.load.tilemapTiledJSON("map", "tilemap06.json");    // Tiled JSON file
+        this.load.image("painter_tiles", "colored_packed.png");    // tile sheet
+        this.load.tilemapTiledJSON("paintermap", "tilemap06.json");    // Tiled JSON file
     }
 
     create() {
         // add a tile map
-        this.map = this.add.tilemap("map");
+        this.map = this.add.tilemap("paintermap");
         // add a tile set to the map
-        this.tileset = this.map.addTilesetImage("colored_packed", "1bit_tiles");
+        this.tileset = this.map.addTilesetImage("colored_packed", "painter_tiles");
         // create a dynamic layer
         this.drawLayer = this.map.createDynamicLayer("drawLayer", this.tileset, 0, 0);
 
@@ -63,9 +63,6 @@ class TilePainter extends Phaser.Scene {
         // enable scene switcher / reload keys
         this.swap = this.input.keyboard.addKey('S');
         this.reload = this.input.keyboard.addKey('R');
-
-        // debug
-        //this.scene.start("tiledPlatformScene");
     }
 
     update(time, delta) {
