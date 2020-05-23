@@ -3,7 +3,7 @@
 // Updated: 5/14/20
 // Mappy
 // Tilemap examples
-// A few examples adapted from Michael Hadley's "Modular Game Worlds in Phaser 3" tutorial series
+// Some examples adapted from Michael Hadley's "Modular Game Worlds in Phaser 3" tutorial series
 
 // debug with extreme prejudice
 "use strict";
@@ -11,7 +11,10 @@
 // game config
 let config = {
     type: Phaser.CANVAS,
-    pixelArt: true,
+    render: {
+        pixelArt: true
+    },
+    //pixelArt: true,
     width: 320,
     height: 320,
     zoom: 2,
@@ -21,7 +24,7 @@ let config = {
             //debug: true,
         }
     },
-    scene: [ ArrayMap, RandomMap, TiledSimple, TiledPlatform, ParallaxLayers, SpawnMap ]
+    scene: [ ArrayMap, RandomMap, TiledSimple, TiledPlatform, ParallaxLayers, SpawnMap, TilePainter ]
 };
 
 const game = new Phaser.Game(config);
