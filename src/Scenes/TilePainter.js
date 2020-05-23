@@ -125,7 +125,7 @@ class TilePainter extends Phaser.Scene {
             this.scene.restart();
         }
         if(Phaser.Input.Keyboard.JustDown(this.swap)) {
-            //this.scene.start("tiledPlatformScene");
+            this.scene.start("simpleanimationScene");
         }
     }
 }

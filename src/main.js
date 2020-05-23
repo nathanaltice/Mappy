@@ -24,7 +24,7 @@ let config = {
             //debug: true,
         }
     },
-    scene: [ ArrayMap, RandomMap, TiledSimple, TiledPlatform, ParallaxLayers, SpawnMap, TilePainter ]
+    scene: [ ArrayMap, RandomMap, TiledSimple, TiledPlatform, ParallaxLayers, SpawnMap, TilePainter, SimpleAnimation ]
 };
 
 const game = new Phaser.Game(config);
