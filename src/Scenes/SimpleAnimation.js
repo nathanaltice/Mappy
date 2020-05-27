@@ -2,10 +2,10 @@ class SimpleAnimation extends Phaser.Scene {
     constructor() {
         super("simpleanimationScene");
 
-        // how frequently tile animations will happen
+        // how frequently tile animations will happen (in ms)
         // all tile animations obey this same global "clock"
         this.animationFreq = 500;
-        // the animation Queue is an object containing arrays of tile IDs to animate
+        // the animationQueue is an object containing arrays of tile IDs to animate
         // the animation routine supports any length of tile ID arrays
         // (the property names are simply for reference)
         this.animationQueue = {     
@@ -42,6 +42,7 @@ class SimpleAnimation extends Phaser.Scene {
         this.animLayer = this.map.createDynamicLayer("animated", this.tileset, 0, 0);
 
         // create tile animation timer
+        // this fires the tileAnimate routine at each tick of the global animation clock
         this.tileAnimationTimer = this.time.addEvent({
             delay: this.animationFreq,
             callback: this.tileAnimate,
