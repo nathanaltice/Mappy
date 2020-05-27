@@ -19,7 +19,7 @@ class TilePainter extends Phaser.Scene {
         this.map = this.add.tilemap("paintermap");
         // add a tile set to the map
         this.tileset = this.map.addTilesetImage("colored_packed", "painter_tiles");
-        // create a dynamic layer
+        // create a DYNAMIC layer
         this.drawLayer = this.map.createDynamicLayer("drawLayer", this.tileset, 0, 0);
 
         // define keyboard cursor input
@@ -42,9 +42,8 @@ class TilePainter extends Phaser.Scene {
         // set camera bounds
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
-        // setup mouse position
-        this.worldPoint = this.input.activePointer.positionToCamera(this.cameras.main);
-        this.wpText = this.add.text(16, game.config.height - 48, '', { 
+        // create text container to show debug text
+        this.debugText = this.add.text(16, game.config.height - 48, '', { 
             fontSize: '8px',
             backgroundColor: '#000000' 
         }).setScrollFactor(0);
@@ -54,35 +53,47 @@ class TilePainter extends Phaser.Scene {
         this.tileMarker.lineStyle(2, 0xFFFF00, 1);
         this.tileMarker.strokeRect(0, 0, this.map.tileWidth, this.map.tileHeight);
 
-        // enable map tile increment/decrement
+        // setup map tile increment/decrement keys
         this.tileDown = this.input.keyboard.addKey('J');
         this.tileUp = this.input.keyboard.addKey('L');
         this.tileDownSkip = this.input.keyboard.addKey('K');
         this.tileUpSkip = this.input.keyboard.addKey('I');
 
-        // enable scene switcher / reload keys
+        // setup scene switcher / reload keys
         this.swap = this.input.keyboard.addKey('S');
         this.reload = this.input.keyboard.addKey('R');
     }
 
     update(time, delta) {
         // update pointer-related data
+        // convert pointer (mouse) position to camera space (returns a Vector2 point)
+        // https://photonstorm.github.io/phaser3-docs/Phaser.Input.Pointer.html#positionToCamera
         this.worldPoint = this.input.activePointer.positionToCamera(this.cameras.main);
+        // get the tile at the given world coordinates from the target tile layer
+        // https://photonstorm.github.io/phaser3-docs/Phaser.Tilemaps.StaticTilemapLayer.html#getTileAtWorldXY
         this.worldTile = this.drawLayer.getTileAtWorldXY(this.worldPoint.x, this.worldPoint.y);
-        if(this.worldTile.index === null) { this.worldTile.index = -1 };    // bounds check to avoid errors
-        this.wpText.text = `worldPoint x: ${this.worldPoint.x.toFixed(0)}, y: ${this.worldPoint.y.toFixed(0)}\ntile at point: ${this.worldTile.index}\ncurrentTile: ${this.currentTile}`;
+        // do a quick "bounds check" to avoid tile-fetching errors
+        if(this.worldTile.index === null) { this.worldTile.index = -1 };
+        // slam some data into the debug text container
+        this.debugText.text = `worldPoint x: ${this.worldPoint.x.toFixed(0)}, y: ${this.worldPoint.y.toFixed(0)}\ntile at point: ${this.worldTile.index}\ncurrentTile: ${this.currentTile}`;
 
         // place tile marker in world space, and snap it to the tile grid
+        // first, convert world coordinates (pixels) to tile coordinates
+        // https://photonstorm.github.io/phaser3-docs/Phaser.Tilemaps.StaticTilemapLayer.html#worldToTileXY__anchor
         const pointerTileXY = this.drawLayer.worldToTileXY(this.worldPoint.x, this.worldPoint.y);
+        // next, convert tile coordinates back to world coordinates (pixels)
+        // https://photonstorm.github.io/phaser3-docs/Phaser.Tilemaps.StaticTilemapLayer.html#tileToWorldXY__anchor
         const snappedWorldPoint = this.drawLayer.tileToWorldXY(pointerTileXY.x, pointerTileXY.y);
+        // finally, set the position of the tile marker to the "snapped" world coordinates
         this.tileMarker.setPosition(snappedWorldPoint.x, snappedWorldPoint.y);
 
-        // draw tile
+        // draw a tile when the mouse is clicked
         if(this.input.activePointer.isDown) {
             this.drawLayer.putTileAtWorldXY(this.currentTile, this.worldPoint.x, this.worldPoint.y);
         }
 
-        // tile index update (for drawing tiles)
+        // keyboard tile index updates (for drawing tiles)
+        // decrement one tile index
         if(Phaser.Input.Keyboard.JustDown(this.tileDown)) {
             this.currentTile--;
             // wrap index value if below tile index 01
@@ -90,6 +101,7 @@ class TilePainter extends Phaser.Scene {
                 this.currentTile = this.TILESINTILESET;
             }
         }
+        // increment one tile index
         if(Phaser.Input.Keyboard.JustDown(this.tileUp)) {
             this.currentTile++;
             // wrap index value if above max tile index
@@ -97,6 +109,7 @@ class TilePainter extends Phaser.Scene {
                 this.currentTile = 1;
             }
         }
+        // decrement 50 tile indices
         if(Phaser.Input.Keyboard.JustDown(this.tileDownSkip)) {
             this.currentTile -= 50;
             // calculate proper wraparound tile index since we're skipping by 50
@@ -105,6 +118,7 @@ class TilePainter extends Phaser.Scene {
                 this.currentTile = this.TILESINTILESET - dif;
             }
         }
+        // increment 50 tile indices
         if(Phaser.Input.Keyboard.JustDown(this.tileUpSkip)) {
             this.currentTile += 50;
             // calculate proper wraparound tile index since we're skipping by 50
