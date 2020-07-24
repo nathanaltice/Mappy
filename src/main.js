@@ -1,6 +1,6 @@
 // Nathan Altice
 // Created: 5/4/20
-// Updated: 5/14/20
+// Updated: 5/27/20
 // Mappy
 // Tilemap examples
 // Some examples adapted from Michael Hadley's "Modular Game Worlds in Phaser 3" tutorial series
@@ -24,7 +24,7 @@ let config = {
             //debug: true,
         }
     },
-    scene: [ ArrayMap, RandomMap, TiledSimple, TiledPlatform, ParallaxLayers, SpawnMap, TilePainter, SimpleAnimation ]
+    scene: [ ArrayMap, RandomMap, TiledSimple, TiledPlatform, ParallaxLayers, SpawnMap, TilePainter, SimpleAnimation, TileBias ]
 };
 
 const game = new Phaser.Game(config);

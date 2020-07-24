@@ -73,8 +73,8 @@ class SpawnMap extends Phaser.Scene {
         this.physics.add.overlap(this.p1, this.coinGroup, (obj1, obj2) => {
             obj2.destroy(); // remove coin on overlap
         });
-        this.physics.add.collider(this.p1, this.enemies, (p1, enemey) => {
-            
+        this.physics.add.collider(this.p1, this.enemies, (p1, enemy) => {
+            // nothing!
         });
         this.physics.add.collider(this.enemies, groundLayer);
 

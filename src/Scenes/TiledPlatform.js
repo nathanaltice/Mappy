@@ -32,7 +32,9 @@ class TiledPlatform extends Phaser.Scene {
         
         // set map collision (two styles: uncomment *one* of the two lines below)
         //groundLayer.setCollision([19, 20, 21, 67, 69, 120]);
-        groundLayer.setCollisionByProperty({ collides: true });
+        groundLayer.setCollisionByProperty({ 
+            collides: true 
+        });
         
         // define a render debug so we can see the tilemap's collision bounds
         const debugGraphics = this.add.graphics().setAlpha(0.75);
