@@ -37,9 +37,9 @@ class SimpleAnimation extends Phaser.Scene {
         this.map = this.add.tilemap("animatedmap");
         // add a tile set to the map
         this.tileset = this.map.addTilesetImage("colored_packed", "animtiles");
-        // create a dynamic layer
-        this.bgLayer = this.map.createStaticLayer("background", this.tileset, 0, 0);
-        this.animLayer = this.map.createDynamicLayer("animated", this.tileset, 0, 0);
+        // create tilemap layers
+        this.bgLayer = this.map.createLayer("background", this.tileset, 0, 0);
+        this.animLayer = this.map.createLayer("animated", this.tileset, 0, 0);
 
         // create tile animation timer
         // this fires the tileAnimate routine at each tick of the global animation clock

@@ -19,9 +19,9 @@ class TiledSimple extends Phaser.Scene {
         // second parameter: the key for the tile sheet we loaded above, in preload
         // https://photonstorm.github.io/phaser3-docs/Phaser.Tilemaps.Tilemap.html#addTilesetImage__anchor
         const tileset = map.addTilesetImage("kenney_colored_packed", "1bit_tiles");
-        // create a static layer (ie, can't be modified)
-        // https://photonstorm.github.io/phaser3-docs/Phaser.Tilemaps.Tilemap.html#createStaticLayer__anchor
-        const worldLayer = map.createStaticLayer("worldMap", tileset, 0, 0);
+        // create a new tilemap layer
+        // https://newdocs.phaser.io/docs/3.54.0/Phaser.Tilemaps.Tilemap#createLayer
+        const worldLayer = map.createLayer("worldMap", tileset, 0, 0);
 
         // define keyboard cursor input
         cursors = this.input.keyboard.createCursorKeys();

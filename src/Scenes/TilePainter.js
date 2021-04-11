@@ -19,8 +19,8 @@ class TilePainter extends Phaser.Scene {
         this.map = this.add.tilemap("paintermap");
         // add a tile set to the map
         this.tileset = this.map.addTilesetImage("colored_packed", "painter_tiles");
-        // create a DYNAMIC layer
-        this.drawLayer = this.map.createDynamicLayer("drawLayer", this.tileset, 0, 0);
+        // create tilemap layer
+        this.drawLayer = this.map.createLayer("drawLayer", this.tileset, 0, 0);
 
         // define keyboard cursor input
         cursors = this.input.keyboard.createCursorKeys();

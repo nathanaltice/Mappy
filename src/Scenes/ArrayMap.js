@@ -47,8 +47,8 @@ class ArrayMap extends Phaser.Scene {
         // try changing the tilesheet key in the next line to see another tileset uses the same indices
         const tilesheet = map.addTilesetImage("smb_tiles");
         // create layer in tilemap
-        // createStaticLayer(layerID, tileset [, x] [, y])
-        const layer = map.createStaticLayer(0, tilesheet, 0, 0);
+        // createLayer(layerID, tileset [, x] [, y])
+        const layer = map.createLayer(0, tilesheet, 0, 0);
 
         // enable scene switcher / reload keys
         this.swap = this.input.keyboard.addKey('S');

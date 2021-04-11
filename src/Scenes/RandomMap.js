@@ -60,8 +60,8 @@ class RandomMap extends Phaser.Scene {
         // addTilesetImage(tilesetName [, key] [, tileWidth] [, tileHeight] [, tileMargin] [, tileSpacing] [, gid])
         const tilesheet = map.addTilesetImage("smb_tiles");
         // create a layer in the tilemap
-        // createStaticLayer(layerID, tileset [, x] [, y])
-        const layer = map.createStaticLayer(0, tilesheet, 0, 0);
+        // createLayer(layerID, tileset [, x] [, y])
+        const layer = map.createLayer(0, tilesheet, 0, 0);
 
         // create scene switcher / reload keys
         this.swap = this.input.keyboard.addKey('S');
@@ -83,8 +83,8 @@ class RandomMap extends Phaser.Scene {
 
     // generate a random number between 0 and max
     getRandomInt(max) {
-        let val = Math.floor(Math.random() * max);
-        return val;
+        let randomInt = Math.floor(Math.random() * max);
+        return randomInt;
     }
     
 }

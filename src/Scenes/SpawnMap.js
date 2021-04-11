@@ -24,9 +24,9 @@ class SpawnMap extends Phaser.Scene {
         const map = this.add.tilemap("spawn_map"); 
         // add a tile set to the map
         const tileset = map.addTilesetImage("colored_packed", "1bit_tiles");
-        // create a static layer (ie, can't be modified)
-        const bgLayer = map.createStaticLayer("Background", tileset, 0, 0);
-        const groundLayer = map.createStaticLayer("Ground", tileset, 0, 0);
+        // create map layer
+        const bgLayer = map.createLayer("Background", tileset, 0, 0);
+        const groundLayer = map.createLayer("Ground", tileset, 0, 0);
 
         // set map collision
         groundLayer.setCollisionByProperty({ collides: true });

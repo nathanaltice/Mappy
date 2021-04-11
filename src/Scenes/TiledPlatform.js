@@ -26,9 +26,9 @@ class TiledPlatform extends Phaser.Scene {
         // add a tileset to the map
         const tileset = map.addTilesetImage("colored_packed", "1bit_tiles");
         // create tilemap layers
-        const backgroundLayer = map.createStaticLayer("Background", tileset, 0, 0);
-        const groundLayer = map.createStaticLayer("Ground", tileset, 0, 0);
-        const sceneryLayer = map.createStaticLayer("Scenery", tileset, 0, 0);
+        const backgroundLayer = map.createLayer("Background", tileset, 0, 0);
+        const groundLayer = map.createLayer("Ground", tileset, 0, 0);
+        const sceneryLayer = map.createLayer("Scenery", tileset, 0, 0);
         
         // set map collision (two styles: uncomment *one* of the two lines below)
         //groundLayer.setCollision([19, 20, 21, 67, 69, 120]);
@@ -58,11 +58,13 @@ class TiledPlatform extends Phaser.Scene {
         /* TO-DO: player animations */
 
         // generate coin objects from object data
+        // https://newdocs.phaser.io/docs/3.54.0/Phaser.Tilemaps.Tilemap#createFromObjects
+        // .createFromObjects(objectLayerName, config)
+
         // .createFromObjects(name, id, spriteConfig [, scene])
-        this.coins = map.createFromObjects("Objects", "coin", {
-            key: "kenney_sheet",
-            frame: 214
-        }, this);
+        this.coins = map.createFromObjects("Objects", {
+            name: "coin"
+        });
         // createFromObjects can't add Physics Sprites, so we add physics manually
         // https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Arcade.World.html#enable__anchor
         // second parameter is 0: DYNAMIC_BODY or 1: STATIC_BODY
