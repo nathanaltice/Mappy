@@ -39,11 +39,15 @@ class ParallaxLayers extends Phaser.Scene {
         this.p1.body.setMaxVelocity(this.MAX_X_VEL, this.MAX_Y_VEL);
         this.p1.body.setCollideWorldBounds(true);
 
+        // init player animation
+        this.p1.anims.play('idle');
+
         // generate coin objects from object data
-        this.coins = map.createFromObjects("Objects", "coin", {
+        this.coins = map.createFromObjects("Objects", {
+            name: "coin",
             key: "kenney_sheet",
             frame: 214
-        }, this);
+        });
         this.physics.world.enable(this.coins, Phaser.Physics.Arcade.STATIC_BODY);
         // now use JS .map method to set a more accurate circle body on each sprite
         this.coins.map((coin) => {
@@ -72,25 +76,31 @@ class ParallaxLayers extends Phaser.Scene {
         // enable scene switcher / reload keys
         this.swap = this.input.keyboard.addKey('S');
         this.reload = this.input.keyboard.addKey('R');
+
+        // update instruction text
+        document.getElementById('description').innerHTML = '<h2>ParallaxLayers.js</h2><br>←→: Move<br>↑: Jump<br>S: Next Scene<br>R: Restart Scene';
     }
 
     update() {
         // player movement
         if(cursors.left.isDown) {
             this.p1.body.setAccelerationX(-this.ACCELERATION);
+            this.p1.play('walk', true);
             this.p1.setFlip(true, false);
         } else if(cursors.right.isDown) {
             this.p1.body.setAccelerationX(this.ACCELERATION);
+            this.p1.play('walk', true);
             this.p1.resetFlip();
         } else {
             // set acceleration to 0 so DRAG will take over
+            this.p1.play('idle');
             this.p1.body.setAccelerationX(0);
             this.p1.body.setDragX(this.DRAG);
         }
         // player jump
+        // note that we need body.blocked rather than body.touching b/c the former applies to tilemap tiles and the latter to the "ground"
         if(!this.p1.body.blocked.down) {
-            // TO-DO: jump animations
-            //this.p1.anims.play('jump', true);
+            this.p1.anims.play('jump');
         }
         if(this.p1.body.blocked.down && Phaser.Input.Keyboard.JustDown(cursors.up)) {
             this.p1.body.setVelocityY(this.JUMP_VELOCITY);

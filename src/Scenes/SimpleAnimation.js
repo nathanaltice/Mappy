@@ -56,6 +56,9 @@ class SimpleAnimation extends Phaser.Scene {
         // enable scene switcher / reload keys
         this.swap = this.input.keyboard.addKey('S');
         this.reload = this.input.keyboard.addKey('R');
+
+        // update instruction text
+        document.getElementById('description').innerHTML = '<h2>SimpleAnimation.js</h2><br>S: Next Scene<br>R: Restart Scene';
     }
 
     // this method handles the tile animations

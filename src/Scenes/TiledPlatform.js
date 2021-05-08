@@ -37,12 +37,12 @@ class TiledPlatform extends Phaser.Scene {
         });
         
         // define a render debug so we can see the tilemap's collision bounds
-        const debugGraphics = this.add.graphics().setAlpha(0.75);
-        groundLayer.renderDebug(debugGraphics, {
-            tileColor: null,    // color of non-colliding tiles
-            collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),    // color of colliding tiles
-            faceColor: new Phaser.Display.Color(40, 39, 37, 255)                // color of colliding face edges
-        });
+        // const debugGraphics = this.add.graphics().setAlpha(0.75);
+        // groundLayer.renderDebug(debugGraphics, {
+        //     tileColor: null,    // color of non-colliding tiles
+        //     collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),    // color of colliding tiles
+        //     faceColor: new Phaser.Display.Color(40, 39, 37, 255)                // color of colliding face edges
+        // });
 
         // setup player
         // place player on map from Tiled object layer data
@@ -55,18 +55,50 @@ class TiledPlatform extends Phaser.Scene {
         this.p1.body.setMaxVelocity(this.MAX_X_VEL, this.MAX_Y_VEL);
         this.p1.body.setCollideWorldBounds(true);
         
-        /* TO-DO: player animations */
+        // player animations
+        this.anims.create({
+            key: 'jump',
+            defaultTextureKey: 'kenney_sheet',
+            frames: [ 
+                { frame: 453 },
+            ],
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'walk',
+            defaultTextureKey: 'kenney_sheet',
+            frames: [ 
+                { frame: 450 },
+                { frame: 451 },
+                { frame: 452 }
+            ],
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'idle',
+            defaultTextureKey: 'kenney_sheet',
+            frames: [ 
+                { frame: 450 },
+            ]
+        });
+
+        // init player animation
+        this.p1.anims.play('idle');
 
         // generate coin objects from object data
         // https://newdocs.phaser.io/docs/3.54.0/Phaser.Tilemaps.Tilemap#createFromObjects
         // .createFromObjects(objectLayerName, config)
-
-        // .createFromObjects(name, id, spriteConfig [, scene])
         this.coins = map.createFromObjects("Objects", {
-            name: "coin"
+            name: "coin",
+            key: "kenney_sheet",
+            frame: 214
         });
-        // createFromObjects can't add Physics Sprites, so we add physics manually
-        // https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Arcade.World.html#enable__anchor
+
+        // for simplicity's sake, we'll add physics to the coins manually
+        // https://newdocs.phaser.io/docs/3.54.0/Phaser.Physics.Arcade.World#enable        
         // second parameter is 0: DYNAMIC_BODY or 1: STATIC_BODY
         this.physics.world.enable(this.coins, Phaser.Physics.Arcade.STATIC_BODY);
         // now use JS .map method to set a more accurate circle body on each sprite
@@ -98,6 +130,9 @@ class TiledPlatform extends Phaser.Scene {
         this.swap = this.input.keyboard.addKey('S');
         this.reload = this.input.keyboard.addKey('R');
 
+        // update instruction text
+        document.getElementById('description').innerHTML = '<h2>TiledPlatform.js</h2><br>←→: Move<br>↑: Jump<br>S: Next Scene<br>R: Restart Scene';
+
         // debug
         //this.scene.start("");
     }
@@ -106,19 +141,22 @@ class TiledPlatform extends Phaser.Scene {
         // player movement
         if(cursors.left.isDown) {
             this.p1.body.setAccelerationX(-this.ACCELERATION);
+            this.p1.play('walk', true);
             this.p1.setFlip(true, false);
         } else if(cursors.right.isDown) {
             this.p1.body.setAccelerationX(this.ACCELERATION);
+            this.p1.play('walk', true);
             this.p1.resetFlip();
         } else {
             // set acceleration to 0 so DRAG will take over
+            this.p1.play('idle');
             this.p1.body.setAccelerationX(0);
             this.p1.body.setDragX(this.DRAG);
         }
         // player jump
         // note that we need body.blocked rather than body.touching b/c the former applies to tilemap tiles and the latter to the "ground"
         if(!this.p1.body.blocked.down) {
-            //this.p1.anims.play('jump', true);
+            this.p1.anims.play('jump');
         }
         if(this.p1.body.blocked.down && Phaser.Input.Keyboard.JustDown(cursors.up)) {
             this.p1.body.setVelocityY(this.JUMP_VELOCITY);

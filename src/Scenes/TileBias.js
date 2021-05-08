@@ -51,6 +51,9 @@ class TileBias extends Phaser.Scene {
         this.p1.body.setMaxVelocity(this.MAX_X_VEL, this.MAX_Y_VEL);
         this.p1.body.setCollideWorldBounds(true);
 
+        // init player animation
+        this.p1.anims.play('idle');
+
         // set physics world properties
         this.physics.world.gravity.y = 2000;
         this.physics.world.bounds.setTo(0, 0, map.widthInPixels, map.heightInPixels);
@@ -78,6 +81,9 @@ class TileBias extends Phaser.Scene {
             fontSize: '8px',
             backgroundColor: '#000000' 
         }).setScrollFactor(0);
+
+        // update instruction text
+        document.getElementById('description').innerHTML = '<h2>TileBias.js</h2><br>←→: Move<br>↑: Reset Player<br>D: Increase Tile Bias<br>A: Decrease Tile Bias<br>S: Next Scene<br>R: Restart Scene';
     }
 
     update() {
@@ -87,12 +93,15 @@ class TileBias extends Phaser.Scene {
         // player movement
         if(cursors.left.isDown) {
             this.p1.body.setAccelerationX(-this.ACCELERATION);
+            this.p1.play('walk', true);
             this.p1.setFlip(true, false);
         } else if(cursors.right.isDown) {
             this.p1.body.setAccelerationX(this.ACCELERATION);
+            this.p1.play('walk', true);
             this.p1.resetFlip();
         } else {
             // set acceleration to 0 so DRAG will take over
+            this.p1.play('idle');
             this.p1.body.setAccelerationX(0);
             this.p1.body.setDragX(this.DRAG);
         }

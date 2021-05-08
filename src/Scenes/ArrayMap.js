@@ -53,6 +53,9 @@ class ArrayMap extends Phaser.Scene {
         // enable scene switcher / reload keys
         this.swap = this.input.keyboard.addKey('S');
 
+        // update instruction text
+        document.getElementById('description').innerHTML = '<h2>ArrayMap.js</h2><br>S: Next Scene';
+
         // debug
         //this.scene.start("simpleanimationScene");
     }

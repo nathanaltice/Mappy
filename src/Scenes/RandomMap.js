@@ -67,8 +67,8 @@ class RandomMap extends Phaser.Scene {
         this.swap = this.input.keyboard.addKey('S');
         this.reload = this.input.keyboard.addKey('R');
 
-        // debug
-        //this.scene.start("tiledSimpleScene");
+        // update instruction text
+        document.getElementById('description').innerHTML = '<h2>RandomMap.js</h2><br>S: Next Scene<br>R: Restart Scene';
     }
 
     update() {

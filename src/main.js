@@ -1,6 +1,6 @@
 // Nathan Altice
 // Created: 5/4/20
-// Updated: 4/11/21
+// Updated: 5/8/21
 // Mappy
 // Tilemap examples
 // Some examples adapted from Michael Hadley's "Modular Game Worlds in Phaser 3" tutorial series
@@ -10,6 +10,7 @@
 
 // game config
 let config = {
+    parent: 'phaser-game',
     type: Phaser.CANVAS,
     render: {
         pixelArt: true
@@ -33,5 +34,5 @@ const game = new Phaser.Game(config);
 const centerX = game.config.width / 2;
 const centerY = game.config.height / 2;
 const w = game.config.width;
-const h = game.config.h;
+const h = game.config.height;
 let cursors = null;
