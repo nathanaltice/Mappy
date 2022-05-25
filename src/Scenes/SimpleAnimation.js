@@ -85,7 +85,7 @@ class SimpleAnimation extends Phaser.Scene {
             this.scene.restart();
         }
         if(Phaser.Input.Keyboard.JustDown(this.swap)) {
-            this.scene.start("tileBiasScene");
+            this.scene.start("tiledAnimationScene");
         }
     }
 }
