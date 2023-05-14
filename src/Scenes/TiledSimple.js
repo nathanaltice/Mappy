@@ -55,7 +55,7 @@ class TiledSimple extends Phaser.Scene {
         this.reload = this.input.keyboard.addKey('R');
 
         // update instruction text
-        document.getElementById('description').innerHTML = '<h2>TiledSimple.js</h2><br>Arrow keys: Move Camera<br>S: Next Scene<br>R: Restart Scene';
+        document.getElementById('description').innerHTML = '<h2>TiledSimple.js</h2><br>Arrow keys: Move Camera<br>Q/E: Zoom out/in<br>S: Next Scene<br>R: Restart Scene';
 
         // debug
         //this.scene.start("tiledPlatformScene");

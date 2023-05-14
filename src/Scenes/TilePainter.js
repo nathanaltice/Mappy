@@ -64,7 +64,7 @@ class TilePainter extends Phaser.Scene {
         this.reload = this.input.keyboard.addKey('R');
 
         // update instruction text
-        document.getElementById('description').innerHTML = '<h2>TilePainter.js</h2><br>Arrows: Move camera<br>J: -1 Tile Index<br>L: +1 Tile Index<br>K: -50 Tile Index<br>I: +50 Tile Index<br>S: Next Scene<br>R: Restart Scene';
+        document.getElementById('description').innerHTML = '<h2>TilePainter.js</h2><br>Arrows: Move camera<br>Left click: Place tile<br>J: -1 Tile Index<br>L: +1 Tile Index<br>K: -50 Tile Index<br>I: +50 Tile Index<br>S: Next Scene<br>R: Restart Scene';
     }
 
     update(time, delta) {

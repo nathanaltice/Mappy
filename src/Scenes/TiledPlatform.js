@@ -37,12 +37,12 @@ class TiledPlatform extends Phaser.Scene {
         });
         
         // define a render debug so we can see the tilemap's collision bounds
-        // const debugGraphics = this.add.graphics().setAlpha(0.75);
-        // groundLayer.renderDebug(debugGraphics, {
-        //     tileColor: null,    // color of non-colliding tiles
-        //     collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),    // color of colliding tiles
-        //     faceColor: new Phaser.Display.Color(40, 39, 37, 255)                // color of colliding face edges
-        // });
+        const debugGraphics = this.add.graphics().setAlpha(0.75);
+        groundLayer.renderDebug(debugGraphics, {
+            tileColor: null,    // color of non-colliding tiles
+            collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),    // color of colliding tiles
+            faceColor: new Phaser.Display.Color(40, 39, 37, 255)                // color of colliding face edges
+        });
 
         // setup player
         // place player on map from Tiled object layer data
@@ -121,7 +121,7 @@ class TiledPlatform extends Phaser.Scene {
         // setup camera
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
         this.cameras.main.startFollow(this.p1, true, 0.25, 0.25); // (target, [,roundPixels][,lerpX][,lerpY])
-        //this.cameras.main.setDeadzone(50, 50);
+        this.cameras.main.setDeadzone(50, 50);
 
         // define keyboard cursor input
         cursors = this.input.keyboard.createCursorKeys();

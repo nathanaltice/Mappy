@@ -5,6 +5,12 @@
 // Tilemap examples
 // Some examples adapted from Michael Hadley's "Modular Game Worlds in Phaser 3" tutorial series
 
+// Broken with 3.6
+/*
+    + 
+
+*/
+
 // debug with extreme prejudice
 "use strict";
 

@@ -35,7 +35,7 @@ class ArrayMap extends Phaser.Scene {
             [ 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39 ]
         ];
 
-        // make tilemap (array date + tilesheet image)
+        // make tilemap (array data + tilesheet image)
         // https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.GameObjectCreator.html#tilemap
         const map = this.make.tilemap({
             data: level01,      // load direct from array

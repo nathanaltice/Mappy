@@ -94,7 +94,7 @@ class SpawnMap extends Phaser.Scene {
         this.reload = this.input.keyboard.addKey('R');
 
         // update instruction text
-        document.getElementById('description').innerHTML = '<h2>SpawnMap.js</h2><br>←→: Move<br>↑: Jump<br>S: Next Scene<br>R: Restart Scene';
+        document.getElementById('description').innerHTML = '<h2>SpawnMap.js</h2><br>←→: Move<br>↑: Jump<br>S: Next Scene<br>R: Restart Scene (to randomize enemy spawns)';
     }
 
     // select [num] random elements from [elements] array and return an array

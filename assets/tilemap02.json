@@ -60,8 +60,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":55.9041955550684,
-                 "y":237.318790934751
+                 "x":55.9042,
+                 "y":237.319
                 }, 
                 {
                  "gid":215,
@@ -482,6 +482,18 @@
                  "width":16,
                  "x":896,
                  "y":176
+                }, 
+                {
+                 "gid":216,
+                 "height":16,
+                 "id":64,
+                 "name":"diamond",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":128,
+                 "y":64
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -490,10 +502,10 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":43,
+ "nextobjectid":69,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.3.4",
+ "tiledversion":"1.6.0",
  "tileheight":16,
  "tilesets":[
         {
@@ -10016,6 +10028,6 @@
         }],
  "tilewidth":16,
  "type":"map",
- "version":1.2,
+ "version":"1.6",
  "width":100
 }
