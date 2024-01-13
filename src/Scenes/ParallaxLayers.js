@@ -3,6 +3,14 @@ class ParallaxLayers extends Phaser.Scene {
         super("parallaxLayersScene")
     }
 
+    init() {
+        this.ACCELERATION = 500
+        this.MAX_X_VEL = 200
+        this.MAX_Y_VEL = 2000
+        this.DRAG = 600    
+        this.JUMP_VELOCITY = -650
+    }
+
     preload() {
         // load assets
         this.load.path = "./assets/"
@@ -10,13 +18,6 @@ class ParallaxLayers extends Phaser.Scene {
     }
 
     create() {
-        // variables and settings
-        this.ACCELERATION = 500
-        this.MAX_X_VEL = 200
-        this.MAX_Y_VEL = 2000
-        this.DRAG = 600    
-        this.JUMP_VELOCITY = -650
-
         // add a tile map
         const map = this.add.tilemap("parallax_map") 
         // add a tile set to the map

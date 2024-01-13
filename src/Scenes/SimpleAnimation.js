@@ -3,14 +3,7 @@ class SimpleAnimation extends Phaser.Scene {
         super("simpleanimationScene")
     }
 
-    preload() {
-        // load assets
-        this.load.path = "./assets/"
-        this.load.image("animtiles", "colored_packed.png")    // tile sheet
-        this.load.tilemapTiledJSON("animatedmap", "tilemap07.json")    // Tiled JSON file
-    }
-
-    create() {
+    init() {
         // how frequently tile animations will happen (in ms)
         // all tile animations obey this same global "clock"
         this.animationFreq = 500
@@ -32,7 +25,16 @@ class SimpleAnimation extends Phaser.Scene {
             face: [ 708, 709, 710, 711 ],
             numbers: [ 852, 853, 854, 855, 856, 857, 858, 859, 860, 861 ]
         }
+    }
 
+    preload() {
+        // load assets
+        this.load.path = "./assets/"
+        this.load.image("animtiles", "colored_packed.png")    // tile sheet
+        this.load.tilemapTiledJSON("animatedmap", "tilemap07.json")    // Tiled JSON file
+    }
+
+    create() {
         // add a tile map
         this.map = this.add.tilemap("animatedmap")
         // add a tile set to the map

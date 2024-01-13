@@ -3,14 +3,7 @@ class SpawnMap extends Phaser.Scene {
         super("spawnMapScene")
     }
 
-    preload() {
-        // load assets
-        this.load.path = "./assets/"
-        this.load.tilemapTiledJSON("spawn_map", "tilemap05.json")    // Tiled JSON file
-    }
-
-    create() {
-        // variables and settings
+    init() {
         this.ACCELERATION = 500
         this.MAX_X_VEL = 200
         this.MAX_Y_VEL = 2000
@@ -19,7 +12,15 @@ class SpawnMap extends Phaser.Scene {
         this.ENEMY_SPAWNS = 6      // how many enemy spawn locations will populate?
         // enemy frame indices from tilesheet
         this.ENEMY_FRAMES = [316, 317, 318, 319, 459, 460, 461, 462]
+    }
 
+    preload() {
+        // load assets
+        this.load.path = "./assets/"
+        this.load.tilemapTiledJSON("spawn_map", "tilemap05.json")    // Tiled JSON file
+    }
+
+    create() {
         // add a tile map
         const map = this.add.tilemap("spawn_map") 
         // add a tile set to the map

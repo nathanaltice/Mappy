@@ -3,6 +3,11 @@ class TilePainter extends Phaser.Scene {
         super("tilepainterScene")
     }
 
+    init() {
+        this.TILESINTILESET = 1056    // number of tiles in selected tileset
+        this.currentTile = 1            // current tile in tile index
+    }
+
     preload() {
         // load assets
         this.load.path = "./assets/"
@@ -11,10 +16,6 @@ class TilePainter extends Phaser.Scene {
     }
 
     create() {
-        // constants
-        this.TILESINTILESET = 1056    // number of tiles in selected tileset
-        this.currentTile = 1            // current tile in tile index
-
         // add a tile map
         this.map = this.add.tilemap("paintermap")
         // add a tile set to the map

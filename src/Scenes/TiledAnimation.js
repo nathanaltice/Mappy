@@ -1,3 +1,5 @@
+// code by Jim Whitehead
+
 class TiledAnimation extends Phaser.Scene {
     constructor() {
         super("tiledAnimationScene")

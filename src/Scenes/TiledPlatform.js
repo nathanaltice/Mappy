@@ -3,6 +3,14 @@ class TiledPlatform extends Phaser.Scene {
         super("tiledPlatformScene")
     }
 
+    init() {
+        this.ACCELERATION = 500
+        this.MAX_X_VEL = 200
+        this.MAX_Y_VEL = 2000
+        this.DRAG = 600    
+        this.JUMP_VELOCITY = -650
+    }
+
     preload() {
         // load assets
         this.load.path = "./assets/"
@@ -14,13 +22,6 @@ class TiledPlatform extends Phaser.Scene {
     }
 
     create() {
-        // variables and settings
-        this.ACCELERATION = 500
-        this.MAX_X_VEL = 200
-        this.MAX_Y_VEL = 2000
-        this.DRAG = 600    
-        this.JUMP_VELOCITY = -650
-
         // add a tilemap
         const map = this.add.tilemap("platform_map")
         // add a tileset to the map
