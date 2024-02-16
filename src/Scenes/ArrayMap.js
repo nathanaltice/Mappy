@@ -46,6 +46,7 @@ class ArrayMap extends Phaser.Scene {
         // addTilesetImage(tilesetName [, key] [, tileWidth] [, tileHeight] [, tileMargin] [, tileSpacing] [, gid])
         // try changing the tilesheet key in the next line to see another tileset uses the same indices
         const tilesheet = map.addTilesetImage("smb_tiles")
+        
         // create layer in tilemap
         // createLayer(layerID, tileset [, x] [, y])
         const layer = map.createLayer(0, tilesheet, 0, 0)

@@ -99,7 +99,7 @@ class TiledPlatform extends Phaser.Scene {
         })
 
         // for simplicity's sake, we'll add physics to the coins manually
-        // https://newdocs.phaser.io/docs/3.54.0/Phaser.Physics.Arcade.World#enable        
+        // https://newdocs.phaser.io/docs/3.70.0/Phaser.Physics.Arcade.World#enable        
         // second parameter is 0: DYNAMIC_BODY or 1: STATIC_BODY
         this.physics.world.enable(this.coins, Phaser.Physics.Arcade.STATIC_BODY)
         // now use JS .map method to set a more accurate circle body on each sprite

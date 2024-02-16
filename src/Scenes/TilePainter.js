@@ -4,15 +4,15 @@ class TilePainter extends Phaser.Scene {
     }
 
     init() {
-        this.TILESINTILESET = 1056    // number of tiles in selected tileset
-        this.currentTile = 1            // current tile in tile index
+        this.TILESINTILESET = 1056  // number of tiles in selected tileset
+        this.currentTile = 1        // current tile in tile index
     }
 
     preload() {
         // load assets
         this.load.path = "./assets/"
-        this.load.image("painter_tiles", "colored_packed.png")    // tile sheet
-        this.load.tilemapTiledJSON("paintermap", "tilemap06.json")    // Tiled JSON file
+        this.load.image("painter_tiles", "colored_packed.png")      // tile sheet
+        this.load.tilemapTiledJSON("paintermap", "tilemap06.json")  // Tiled JSON file
     }
 
     create() {
@@ -73,11 +73,14 @@ class TilePainter extends Phaser.Scene {
         // convert pointer (mouse) position to camera space (returns a Vector2 point)
         // https://photonstorm.github.io/phaser3-docs/Phaser.Input.Pointer.html#positionToCamera
         this.worldPoint = this.input.activePointer.positionToCamera(this.cameras.main)
+        
         // get the tile at the given world coordinates from the target tile layer
         // https://photonstorm.github.io/phaser3-docs/Phaser.Tilemaps.StaticTilemapLayer.html#getTileAtWorldXY
         this.worldTile = this.drawLayer.getTileAtWorldXY(this.worldPoint.x, this.worldPoint.y)
+        
         // do a quick "bounds check" to avoid tile-fetching errors
         if(this.worldTile.index === null) { this.worldTile.index = -1 }
+        
         // slam some data into the debug text container
         this.debugText.text = `worldPoint x: ${this.worldPoint.x.toFixed(0)}, y: ${this.worldPoint.y.toFixed(0)}\ntile at point: ${this.worldTile.index}\ncurrentTile: ${this.currentTile}`
 
@@ -85,9 +88,11 @@ class TilePainter extends Phaser.Scene {
         // first, convert world coordinates (pixels) to tile coordinates
         // https://photonstorm.github.io/phaser3-docs/Phaser.Tilemaps.StaticTilemapLayer.html#worldToTileXY__anchor
         const pointerTileXY = this.drawLayer.worldToTileXY(this.worldPoint.x, this.worldPoint.y)
+        
         // next, convert tile coordinates back to world coordinates (pixels)
         // https://photonstorm.github.io/phaser3-docs/Phaser.Tilemaps.StaticTilemapLayer.html#tileToWorldXY__anchor
         const snappedWorldPoint = this.drawLayer.tileToWorldXY(pointerTileXY.x, pointerTileXY.y)
+        
         // finally, set the position of the tile marker to the "snapped" world coordinates
         this.tileMarker.setPosition(snappedWorldPoint.x, snappedWorldPoint.y)
 
