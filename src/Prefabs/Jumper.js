@@ -1,22 +1,22 @@
 class Jumper extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, key, frame) {
         // call Phaser Physics Sprite constructor
-        super(scene, x, y, key, frame);
+        super(scene, x, y, key, frame)
         // setup Physics Sprite
-        scene.add.existing(this);               // make it real
-        scene.physics.add.existing(this);       // add physics body
+        scene.add.existing(this)               // make it real
+        scene.physics.add.existing(this)       // add physics body
         
         // set properties
-        this.body.setImmovable();
-        this.setOrigin(0, 1);  
+        this.body.setImmovable()
+        this.setOrigin(0, 1)  
         
         // add custom properties    
-        this.JUMP_VELOCITY = -600;              
-        this.jumpDelay = 2000;
-        this.jumpStartTime = Phaser.Math.Between(500, 2500);    // randomize to offset jumps
+        this.JUMP_VELOCITY = -600              
+        this.jumpDelay = 2000
+        this.jumpStartTime = Phaser.Math.Between(500, 2500)    // randomize to offset jumps
 
         // start jumpin'
-        this.initJumpTimer(scene);
+        this.initJumpTimer(scene)
     }
 
     initJumpTimer(scene) {
@@ -27,13 +27,13 @@ class Jumper extends Phaser.Physics.Arcade.Sprite {
             startAt: this.jumpStartTime,
             callbackScope: this,    // keep callback scoped to Jumper object
             callback: () => {
-                this.body.setVelocityY(this.JUMP_VELOCITY);
+                this.body.setVelocityY(this.JUMP_VELOCITY)
             }
-        });
+        })
     }
 
     update() {
         // call Physics Sprite update
-        super.update();
+        super.update()
     }
 }
